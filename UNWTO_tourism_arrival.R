@@ -72,9 +72,6 @@ df <- df %>% mutate_at(vars(year), str_replace_all, pattern=vars_to_replace)
 #change Value column as numeric and year as integer
 df <- df %>% mutate(value = as.numeric(value), year = as.integer(year))
 
-#add dummy day and month column 
-#df <- df %>% mutate(Month = "12", Day = "31")
-
 #convert misc characters into  to zeros
 df <- df %>%  replace(., is.na(.), "0")
 
@@ -83,7 +80,6 @@ df <- df %>% mutate_at(vars(value), as.numeric)
 
 #change country, variables, and series into factor
 df <- df %>% mutate_at(vars(country,variables,series), as_factor)
-
 
 
 #impute missing values by selecting the maximum value from group of varibles
@@ -95,10 +91,10 @@ df <- df %>%
   filter(value == max(value))
 
 
-#pull data from world bank data we will use for lef_join reference (uplodaed to my github for your convenience)
+#pull data from world bank data we will use for lef_join reference (uplosded to my github for your convenience)
 db <- read.csv2(url("https://raw.githubusercontent.com/calvindw/datasets/master/countries.csv"), stringsAsFactors =FALSE)
 
-#transform the iso2c column from x to lowercase so it can be used for left_join with country_code
+#transform the iso2c column from db to lowercase so it can be used for left_join with country_code
 db <- db %>% mutate(iso2c = tolower(iso2c))
 
 #filter arrival data
@@ -130,8 +126,7 @@ df_arrival <- df_arrival %>%
   mutate(region = as_factor(region), country = as_factor(country)) 
 
 
-
-## Animation with flag (arrivals)====
+#### Animation with flag (arrivals)####
 static_plot <- df_arrival %>%  
   filter(rank <= 15) %>% 
   ggplot(.) +
@@ -167,44 +162,3 @@ animate(animation,fps = 10,end_pause = 60, duration=30)
 
 
 animate(animation, renderer=av_renderer("unwto.mp4"), fps = 20,end_pause = 120, duration=60, rewind=FALSE)
-
-
-##facet_wrap based on ranking##
-static_plot <- df_arrival %>%  
-  filter(rank <= 10 & year >= 2010) %>% 
-  ggplot(.) +
-  aes(x=rank, group=country, fill=country)+
-  geom_bar(aes(y=value, fill=country, group=country), stat="identity")+
-  geom_text(aes(y = 0, label = country, hjust = 1), size=5)+
-  geom_text(aes(y = max(value)/2, label = scales::comma(value)), size = 5)+
-  geom_flag(aes(y = max(value)/10, country=iso2c))+ 
-  scale_x_reverse()+
-  xlab("Country") + 
-  labs(title="International Tourist Arrivals (thousands)",
-       subtitle="Year 2010-2018",
-       caption = "UNWTO")+
-  coord_flip(clip="off")+
-  facet_wrap(vars(year))+
-  theme_minimal()+
-  theme(axis.line=element_blank(),
-        axis.text.x=element_blank(),
-        axis.text.y=element_blank(),
-        axis.ticks=element_blank(),
-        axis.title.x=element_blank(),
-        axis.title.y=element_blank(),
-        legend.position = "none",
-        strip.text = element_text(size=18),
-        plot.title = element_text(size = 25, face = "bold",
-                                  colour = "black", vjust = 0),
-        plot.subtitle = element_text(size = 20, face = "italic",
-                                     colour = "black", vjust = 0),
-        plot.caption = element_text(size = 20, face = "italic",
-                                     colour = "black", vjust = 0),
-        plot.margin = margin(2, 2, 2, 8, "cm"),
-        panel.spacing = unit(4, "cm"))+
-  
-
-#static_plot
-
-
-ggsave(static_plot, file="static_plot.png", width=120, height=60, units = "cm")
