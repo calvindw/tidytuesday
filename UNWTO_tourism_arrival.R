@@ -6,7 +6,6 @@
 library(tidyverse)
 library(readxl)
 library(zoo)
-library(plotly)
 library(scales)
 library(lubridate)
 library(egg)
@@ -15,7 +14,6 @@ library(wbstats)
 library(countrycode)
 #devtools::install_github("rensa/ggflags")
 library(ggflags)
-library(ggrepel)
 library(janitor)
 
 
