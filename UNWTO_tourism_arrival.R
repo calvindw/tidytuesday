@@ -151,7 +151,7 @@ static_plot <- df_arrival %>%
         axis.title.x=element_blank(),
         axis.title.y=element_blank(),
         legend.position = "none",
-        plot.margin = margin(0, 2, 0, 5, "cm"),
+        plot.margin = margin(0, 2, 0, 8, "cm"),
         plot.title = element_text(size = 14, hjust = 0.5, face = "bold",
                                   colour = "black", vjust = 0))+
   coord_flip(clip="off")
