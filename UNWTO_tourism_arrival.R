@@ -142,7 +142,7 @@ static_plot <- df_arrival %>%
   geom_flag(aes(y = max(value)/10, country=iso2c))+ 
   scale_x_reverse()+
   xlab("Country") + 
-  ggtitle("International Tourist Arrivals")+
+  ggtitle("International Tourist Arrivals (thousands)")+
   theme_minimal()+
   theme(axis.line=element_blank(),
         axis.text.x=element_blank(),
@@ -153,13 +153,16 @@ static_plot <- df_arrival %>%
         legend.position = "none",
         plot.margin = margin(0, 2, 0, 8, "cm"),
         plot.title = element_text(size = 14, hjust = 0.5, face = "bold",
-                                  colour = "black", vjust = 0))+
+                                  colour = "black", vjust = 0),
+        panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank())+
   coord_flip(clip="off")
 
 
 
 animation <- static_plot + transition_time(as.integer(year))  +
-  labs(title = "International Tourist Arrivals. Year: {frame_time}")
+  labs(title = "International Tourist Arrivals (Thousands). Year: {frame_time}")
+
 animate(animation,fps = 10,end_pause = 60, duration=30)
 
 
@@ -177,7 +180,7 @@ static_plot <- df_arrival %>%
   geom_flag(aes(y = max(value)/10, country=iso2c))+ 
   scale_x_reverse()+
   xlab("Country") + 
-  labs(title="International Tourist Arrivals",
+  labs(title="International Tourist Arrivals (thousands)",
        subtitle="Year 2010-2018",
        caption = "UNWTO")+
   coord_flip(clip="off")+
