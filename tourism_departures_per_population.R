@@ -1,3 +1,5 @@
+#this code will compare the outbound tourism data from UNWTO with World Bank's population data
+
 library(tidyverse)
 library(wbstats)
 library(scales)
