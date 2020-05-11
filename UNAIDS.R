@@ -1,4 +1,4 @@
-#this chart will create a graph that shows All Adults(15+) upper estimate deaths from UNAIDS data
+#this chart will create a graph that shows deaths across UNAIDS regions from UNAIDS data
 
 library(tidyverse)
 library(scales)
@@ -39,7 +39,7 @@ v <- df_x %>%
        caption = "Source: UNAIDS")+
   theme_minimal()+
   ylab("Deaths\n")+
-  xlab("Year\n")+
+  xlab("Region\n")+
   theme(plot.title = element_text(size = 30, face = "bold",
                                   colour = "black", vjust = 0),
         plot.subtitle = element_text(size = 15, face = "italic",
