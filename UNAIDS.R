@@ -39,7 +39,7 @@ v <- df_x %>%
        caption = "Source: UNAIDS")+
   theme_minimal()+
   ylab("Deaths\n")+
-  xlab("Region\n")+
+  xlab("Regions\n")+
   theme(plot.title = element_text(size = 30, face = "bold",
                                   colour = "black", vjust = 0),
         plot.subtitle = element_text(size = 15, face = "italic",
@@ -59,4 +59,4 @@ v <- df_x %>%
 
 
 #save it
-ggsave(plot=v, filename="plt.png",height = 30, width = 60, units="cm", limitsize = FALSE)
+ggsave(plot=v, filename="UNAIDS.png",height = 30, width = 60, units="cm", limitsize = FALSE)
