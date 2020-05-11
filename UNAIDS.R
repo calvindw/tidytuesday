@@ -26,21 +26,20 @@ df_x <- df_x %>% mutate_at(vars(country_or_area,subgroup), funs(as_factor))
 
 #reorder factors
 df_x$subgroup <- fct_relevel(df_x$subgroup,"Children (0-14) estimate", 
-                                           "Females Adults (15+) estimate", 
-                                            "Males Adults (15+) estimate")
+                             "Females Adults (15+) estimate", 
+                             "Males Adults (15+) estimate")
 
 #visualize
 v <- df_x %>% 
   ggplot(.) +
-  aes(x=subgroup, y=value,fill=subgroup)+
-  geom_bar(stat="identity", position = "dodge")+ 
+  aes(x=country_or_area, y=value,fill=subgroup)+
+  geom_bar(width= 0.5, stat="identity", position = position_dodge(width=0.9))+ 
   labs(title="AIDS Related Deaths across regions",
        subtitle="Year 2014\n",
        caption = "Source: UNAIDS")+
   theme_minimal()+
   ylab("Deaths\n")+
   xlab("Year\n")+
-  facet_wrap(vars(country_or_area))+
   theme(plot.title = element_text(size = 30, face = "bold",
                                   colour = "black", vjust = 0),
         plot.subtitle = element_text(size = 15, face = "italic",
@@ -49,11 +48,13 @@ v <- df_x %>%
         strip.text.x = element_text(size = 15),
         strip.text.y = element_text(size = 15),
         axis.text = element_text(size = 15),
-        axis.title = element_text(size = 18),
+        axis.title = element_text(size = 18, face = "bold"),
         legend.text = element_text(size = 15),
         legend.title = element_text(size = 18),
         panel.spacing = unit(4, "lines"))+
   scale_x_discrete(labels = wrap_format(10))
+
+
 
 
 
