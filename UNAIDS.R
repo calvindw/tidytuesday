@@ -21,10 +21,8 @@ df_x <- df  %>%
   filter(!str_detect(subgroup,"upper| lower")) %>% 
   filter(str_detect(subgroup,"Children|Females|Males")) 
 
-
+#change the strings into factors
 df_x <- df_x %>% mutate_at(vars(country_or_area,subgroup), funs(as_factor))
-
-
 
 #reorder factors
 df_x$subgroup <- fct_relevel(df_x$subgroup,"Children (0-14) estimate", 
@@ -35,7 +33,7 @@ df_x$subgroup <- fct_relevel(df_x$subgroup,"Children (0-14) estimate",
 v <- df_x %>% 
   ggplot(.) +
   aes(x=subgroup, y=value,fill=subgroup)+
-  geom_bar(stat="identity", position = "dodge")+
+  geom_bar(stat="identity", position = "dodge")+ 
   labs(title="AIDS Related Deaths across regions",
        subtitle="Year 2014\n",
        caption = "Source: UNAIDS")+
