@@ -14,7 +14,7 @@ df <- df %>% clean_names
 #prevent the academic notation
 options(scipen = 999)
 
-#filter adults (15+) variables and "all countries"
+#filter variables
 df_x <- df  %>% 
   filter(str_detect(country_or_area, "UNAIDS")) %>% 
   filter(year %in% 2014) %>% 
